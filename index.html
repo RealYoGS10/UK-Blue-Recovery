@@ -3,201 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>POSEIDON OS | WINDSOR OLYMPUS ACADEMY</title>
+    <title>POSEIDON OS | GURMEET SINGH 8F</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;600&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --neon-blue: #00f2ff;
-            --deep-abyss: #000b14;
-            --bio-green: #00ffcc;
-            --ui-glass: rgba(0, 242, 255, 0.03);
-            --border-glow: rgba(0, 242, 255, 0.2);
-        }
+        :root { --neon: #00f2ff; --abyss: #000814; --bio: #00ffcc; --glass: rgba(0, 242, 255, 0.05); }
+        body { margin: 0; background: var(--abyss); color: #b0d4ff; font-family: 'Rajdhani', sans-serif; overflow-x: hidden; }
 
-        body, html {
-            margin: 0; padding: 0; background: var(--deep-abyss);
-            color: #b0d4ff; font-family: 'Rajdhani', sans-serif;
-            overflow-x: hidden; scroll-behavior: smooth;
-        }
+        nav { position: fixed; top: 0; width: 100%; padding: 15px 40px; display: flex; justify-content: space-between; align-items: center; background: rgba(0, 8, 20, 0.95); backdrop-filter: blur(20px); border-bottom: 1px solid var(--neon); z-index: 1000; box-sizing: border-box; }
+        .id-badge { font-family: 'Orbitron'; font-size: 0.7rem; color: var(--neon); }
+        .db-trigger { background: var(--neon); border: none; color: var(--abyss); font-family: 'Orbitron'; padding: 8px 20px; cursor: pointer; font-weight: bold; border-radius: 4px; box-shadow: 0 0 15px var(--neon); transition: 0.3s; }
 
-        /* Animated Background Overlay */
-        .ocean-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(180deg, rgba(0, 11, 20, 0) 0%, #000b14 100%);
-            pointer-events: none; z-index: 1;
-        }
+        /* DATABASE OVERLAY */
+        #data-vault { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--abyss); z-index: 2000; overflow-y: auto; padding-top: 80px; }
+        .vault-container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+        .close-btn { position: fixed; top: 20px; right: 40px; background: #ff4d4d; color: white; border: none; padding: 10px 20px; font-family: 'Orbitron'; cursor: pointer; z-index: 2100; border-radius: 4px; }
+        
+        .vault-tabs { display: flex; gap: 10px; margin-bottom: 30px; border-bottom: 1px solid var(--neon); padding-bottom: 10px; flex-wrap: wrap; }
+        .v-tab { background: none; border: 1px solid var(--neon); color: var(--neon); padding: 10px 20px; font-family: 'Orbitron'; cursor: pointer; font-size: 0.6rem; }
+        .v-tab.active { background: var(--neon); color: var(--abyss); }
+        .v-content { display: none; animation: fadeIn 0.4s; }
+        .v-content.active { display: block; }
 
-        /* ELITE UI: DASHBOARD HEADER */
-        nav {
-            position: fixed; top: 0; width: 100%; padding: 20px 40px;
-            display: flex; justify-content: space-between; align-items: center;
-            background: rgba(0, 8, 20, 0.85); backdrop-filter: blur(15px);
-            border-bottom: 1px solid var(--border-glow); z-index: 1000; box-sizing: border-box;
-        }
+        .data-entry { background: var(--glass); padding: 20px; border-radius: 10px; margin-bottom: 20px; border-left: 3px solid var(--bio); position: relative; }
+        .data-entry h4 { margin: 0; color: var(--neon); font-family: 'Orbitron'; font-size: 0.9rem; }
+        .data-entry p { font-size: 0.9rem; margin: 10px 0; line-height: 1.4; }
+        .sol-box { background: rgba(0, 255, 204, 0.1); padding: 10px; border-radius: 5px; color: var(--bio); font-weight: bold; font-size: 0.8rem; }
+        .entry-num { position: absolute; top: 10px; right: 15px; font-family: 'Orbitron'; font-size: 0.6rem; opacity: 0.3; }
 
-        .system-status { font-family: 'Orbitron'; color: var(--neon-blue); font-size: 0.8rem; letter-spacing: 2px; }
-        .school-name { font-family: 'Orbitron'; font-weight: 700; color: #fff; text-shadow: 0 0 10px var(--neon-blue); }
-
-        /* HERO SECTION */
-        header {
-            height: 100vh; display: flex; flex-direction: column; justify-content: center;
-            align-items: center; text-align: center; position: relative; z-index: 2;
-        }
-
-        .glitch-title {
-            font-family: 'Orbitron'; font-size: clamp(4rem, 15vw, 8rem);
-            margin: 0; color: #fff; letter-spacing: 25px;
-            text-shadow: 4px 4px var(--border-glow);
-        }
-
-        .abstract-box {
-            max-width: 650px; padding: 30px; background: var(--ui-glass);
-            border: 1px solid var(--border-glow); border-radius: 4px;
-            backdrop-filter: blur(5px); margin-top: 40px; position: relative;
-        }
-
-        /* DATA TABS SECTION */
-        .main-ui { position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; padding: 100px 20px; }
-
-        .ui-card {
-            background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-glow);
-            border-radius: 8px; margin-bottom: 100px; overflow: hidden;
-            display: grid; grid-template-columns: 300px 1fr;
-        }
-
-        .side-panel { background: rgba(0, 242, 255, 0.05); padding: 30px; border-right: 1px solid var(--border-glow); }
-        .main-panel { padding: 40px; }
-
-        .tab-trigger {
-            display: block; width: 100%; padding: 15px; margin-bottom: 10px;
-            background: transparent; border: 1px solid var(--border-glow);
-            color: var(--neon-blue); font-family: 'Orbitron'; font-size: 0.7rem;
-            text-align: left; cursor: pointer; transition: 0.3s;
-        }
-
-        .tab-trigger.active, .tab-trigger:hover {
-            background: var(--neon-blue); color: var(--deep-abyss); box-shadow: 0 0 20px var(--neon-blue);
-        }
-
-        .content-pane { display: none; animation: slideIn 0.4s ease-out; }
-        .content-pane.active { display: block; }
-
-        @keyframes slideIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
-
-        /* ANALYTICS TABLE */
-        .analytics-table {
-            width: 100%; border-collapse: collapse; margin-top: 20px;
-            font-size: 0.9rem; background: rgba(0,0,0,0.4);
-        }
-
-        .analytics-table th { background: var(--border-glow); color: var(--neon-blue); padding: 15px; text-align: left; font-family: 'Orbitron'; font-size: 0.7rem; }
-        .analytics-table td { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); }
-
-        .pro-label { color: var(--bio-green); text-transform: uppercase; font-weight: bold; font-size: 0.7rem; }
-        .con-label { color: #ff4d4d; text-transform: uppercase; font-weight: bold; font-size: 0.7rem; }
-
-        /* FOOTER SCANNER */
-        .scanner-bar {
-            position: fixed; bottom: 0; width: 100%; height: 5px;
-            background: var(--neon-blue); box-shadow: 0 0 20px var(--neon-blue);
-            z-index: 1001; animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse { 0% { opacity: 0.3; } 50% { opacity: 1; } 100% { opacity: 0.3; } }
+        header { height: 50vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        .title { font-family: 'Orbitron'; font-size: clamp(3rem, 8vw, 5rem); letter-spacing: 20px; color: #fff; margin: 0; text-shadow: 0 0 20px var(--neon); }
+        .main-layout { max-width: 1100px; margin: 0 auto; padding: 50px 20px; }
+        .module-card { background: var(--glass); border: 1px solid var(--neon); padding: 30px; border-radius: 15px; margin-bottom: 40px; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
 
-    <div class="ocean-overlay"></div>
-    <div class="scanner-bar"></div>
-
     <nav>
-        <div class="school-name">WINDSOR OLYMPUS ACADEMY</div>
-        <div class="system-status">SYSTEM_RECOVERY: ACTIVE // 2050_INIT</div>
+        <div class="id-badge">ID: GURMEET_SINGH_8F // WINDSOR OLYMPUS ACADEMY</div>
+        <button class="db-trigger" onclick="toggleVault(true)">RESEARCH_DATABASE [50 ENTRIES]</button>
     </nav>
 
-    <header>
-        <h1 class="glitch-title">POSEIDON</h1>
-        <div class="abstract-box">
-            <h3 style="font-family: 'Orbitron'; color: var(--neon-blue); margin-top: 0; font-size: 0.8rem;">MISSION_ABSTRACT</h3>
-            <p style="font-size: 0.95rem; line-height: 1.6;">A forensic scientific response to the collapse of UK marine biodiversity. Project Poseidon leverages advanced chemical carbon capture, hydro-magnetic propulsion, and molecular polymer filtration to restore the 'Blue Economy' by 2050.</p>
+    <div id="data-vault">
+        <button class="close-btn" onclick="toggleVault(false)">BACK TO DASHBOARD</button>
+        <div class="vault-container">
+            <h1 style="font-family: 'Orbitron'; color: var(--neon); text-align: center; margin-bottom: 0;">MASTER ARCHIVE</h1>
+            <p style="text-align: center; opacity: 0.7; margin-bottom: 40px;">Data compiled by Lead Scientist Gurmeet Singh</p>
+            
+            <div class="vault-tabs">
+                <button class="v-tab active" onclick="switchVault(this, 'bio-section')">01_BIOLOGY</button>
+                <button class="v-tab" onclick="switchVault(this, 'pol-section')">02_POLLUTION_CHEM</button>
+                <button class="v-tab" onclick="switchVault(this, 'geo-section')">03_GEOGRAPHY</button>
+                <button class="v-tab" onclick="switchVault(this, 'eng-section')">04_ENGINEERING</button>
+            </div>
+
+            <div id="bio-section" class="v-content active">
+                <div class="data-entry"><span class="entry-num">#01</span><h4>Phytoplankton</h4><p>Produce 50% of global oxygen. Primary food source absorbing $CO_2$.</p><div class="sol-box">STEM SOLUTION: Satellite monitoring to protect from pollution.</div></div>
+                <div class="data-entry"><span class="entry-num">#02</span><h4>Basking Sharks</h4><p>Largest UK fish. Filter-feeders threatened by historic hunting.</p><div class="sol-box">STEM SOLUTION: Mobile Marine Protected Areas.</div></div>
+                <div class="data-entry"><span class="entry-num">#05</span><h4>Seagrass Meadows</h4><p> Flowering plant trapping carbon 35x faster than rainforests.</p><div class="sol-box">STEM SOLUTION: "Project Seagrass" automated seeding.</div></div>
+            </div>
+
+            <div id="pol-section" class="v-content">
+                <div class="data-entry"><span class="entry-num">#31</span><h4>Fertilizer Runoff</h4><p>Causes Algal Blooms and 'Dead Zones' by stealing water oxygen.</p><div class="sol-box">STEM SOLUTION: Buffer Strips to soak up chemicals.</div></div>
+                <div class="data-entry"><span class="entry-num">#32</span><h4>Heavy Metal Contamination</h4><p>Mercury/Lead 'Bioaccumulate' up the food chain, hitting Tuna and Seals hardest.</p><div class="sol-box">STEM SOLUTION: 'Capping' to lock contaminated mud away.</div></div>
+                <div class="data-entry"><span class="entry-num">#34</span><h4>Ghost Fishing Nets</h4><p>Lost plastic nets that 'fish' forever, trapping dolphins and seals.</p><div class="sol-box">STEM SOLUTION: GPS Net Tags for recovery.</div></div>
+                <div class="data-entry"><span class="entry-num">#36</span><h4>Anti-Fouling Paint</h4><p>Toxic chemicals used to kill barnacles. Modern versions are biocide-free.</p><div class="sol-box">STEM SOLUTION: Ultrasonic vibrations to remove barnacles.</div></div>
+            </div>
+
+            <div id="geo-section" class="v-content">
+                <div class="data-entry"><span class="entry-num">#41</span><h4>The Continental Shelf</h4><p>Shallow ledge (< 200m) around UK that fuels massive biodiversity.</p><div class="sol-box">STEM SOLUTION: Bathymetric 3D Mapping.</div></div>
+                <div class="data-entry"><span class="entry-num">#42</span><h4>Doggerland</h4><p>Lost land connecting UK to Europe. Now a vital sandbar for wind farms.</p><div class="sol-box">STEM SOLUTION: Sub-bottom profiling sonar.</div></div>
+                <div class="data-entry"><span class="entry-num">#43</span><h4>Jurassic Coast</h4><p>95 miles of history revealing ancient sea monster fossils.</p><div class="sol-box">STEM SOLUTION: Photogrammetry digital backups.</div></div>
+                <div class="data-entry"><span class="entry-num">#48</span><h4>Submarine Canyons</h4><p>Underwater Grand Canyons funneling deep-sea nutrients to the surface.</p><div class="sol-box">STEM SOLUTION: ROV Deep-Exploration.</div></div>
+            </div>
+
+            <div id="eng-section" class="v-content">
+                <div class="data-entry"><span class="entry-num">#21</span><h4>Offshore Wind</h4><p>UK is a global leader. Single turns power homes for 24 hours.</p><div class="sol-box">STEM SOLUTION: AI Predictive structural maintenance.</div></div>
+                <div class="data-entry"><span class="entry-num">#24</span><h4>Thames Barrier</h4><p>Size of 5 football pitches. Protects London from North Sea surges.</p><div class="sol-box">STEM SOLUTION: Raising walls for future sea-level rise.</div></div>
+            </div>
         </div>
+    </div>
+
+    <header>
+        <h1 class="title">POSEIDON</h1>
+        <p style="font-family: 'Orbitron'; color: var(--neon); margin-top: 10px;">LEAD SCIENTIST GURMEET SINGH // 8F</p>
     </header>
 
-    <div class="main-ui">
-
-        <div class="ui-card">
-            <div class="side-panel">
-                <h4 style="font-family: 'Orbitron'; color: var(--neon-blue);">MODULE_01</h4>
-                <p style="font-size: 0.8rem; opacity: 0.7;">TOPIC: NATURE RECOVERY</p>
-                <button class="tab-trigger active" onclick="showTab(this, 'm1-crisis')">THE_CRISIS</button>
-                <button class="tab-trigger" onclick="showTab(this, 'm1-fix')">STEM_SOLUTION</button>
-                <button class="tab-trigger" onclick="showTab(this, 'm1-impact')">BIO_IMPACT</button>
-            </div>
-            <div class="main-panel">
-                <div id="m1-crisis" class="content-pane active">
-                    <h2 style="margin-top:0;">UK Seagrass Depletion (92%)</h2>
-                    <p>Evidence from the Windsor Olympus Research Pack highlights a critical loss of <em>Zostera marina</em>. This habitat loss has turned the UK seabed into a carbon-emitting desert.</p>
-                </div>
-                <div id="m1-fix" class="content-pane">
-                    <h2 style="margin-top:0;">AI-Sequestration Swarms</h2>
-                    <p>Using autonomous underwater vehicles (AUVs) to reseed the coast. <strong>Data:</strong> Seagrass stores carbon 35x faster than rainforests.</p>
-                    <table class="analytics-table">
-                        <tr><th>VARIABLE</th><th>DATA_RESULT</th></tr>
-                        <tr><td class="pro-label">Primary Pro</td><td>3500% Efficiency over land-based forests.</td></tr>
-                        <tr><td class="con-label">Primary Con</td><td>High sensitivity to thermal fluctuations ($+2^\circ$C limit).</td></tr>
-                    </table>
-                </div>
-                <div id="m1-impact" class="content-pane">
-                    <h2 style="margin-top:0;">Nursery Restoration</h2>
-                    <p>Impact on animals: Immediate population recovery for Seahorses and juvenile Atlantic Cod by providing a 90% increase in predator-safe zones.</p>
-                </div>
-            </div>
+    <div class="main-layout">
+        <div class="module-card">
+            <h2 style="font-family: 'Orbitron'; margin-top:0; color: var(--neon);">SYSTEM STATUS: OPTIMAL</h2>
+            <p>Database entries 01 through 50 have been successfully uploaded to the Poseidon Archive. This system now tracks the biological, chemical, and geological health of the UK's territorial waters.</p>
         </div>
-
-        <div class="ui-card">
-            <div class="side-panel">
-                <h4 style="font-family: 'Orbitron'; color: var(--neon-blue);">MODULE_02</h4>
-                <p style="font-size: 0.8rem; opacity: 0.7;">TOPIC: LOGISTICS</p>
-                <button class="tab-trigger active" onclick="showTab(this, 'm2-crisis')">THE_CRISIS</button>
-                <button class="tab-trigger" onclick="showTab(this, 'm2-fix')">STEM_SOLUTION</button>
-                <button class="tab-trigger" onclick="showTab(this, 'm2-impact')">BIO_IMPACT</button>
-            </div>
-            <div class="main-panel">
-                <div id="m2-crisis" class="content-pane active">
-                    <h2 style="margin-top:0;">Acoustic Pollution</h2>
-                    <p>The "Acoustic Fog" of 2024 (180dB+) disrupted whale echolocation, leading to navigational failure and mass strandings.</p>
-                </div>
-                <div id="m2-fix" class="content-pane">
-                    <h2 style="margin-top:0;">MHD Silent Drive</h2>
-                    <p>Propulsion via Magnetohydrodynamics and <strong>Liquid Green Hydrogen ($H_2$)</strong>. No moving parts means 0dB cavitation noise.</p>
-                    <table class="analytics-table">
-                        <tr><th>VARIABLE</th><th>DATA_RESULT</th></tr>
-                        <tr><td class="pro-label">Primary Pro</td><td>Total whale-safe communication frequency restoration.</td></tr>
-                        <tr><td class="con-label">Primary Con</td><td>Requires massive superconducting energy at low temps.</td></tr>
-                    </table>
-                </div>
-                <div id="m2-impact" class="content-pane">
-                    <h2 style="margin-top:0;">Cetacean Survival</h2>
-                    <p>Impact on animals: Restoration of long-distance baleen whale communication (up to 500km range increase).</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="abstract-box" style="max-width: 100%; border: 2px solid var(--bio-green);">
-            <h2 style="font-family: 'Orbitron'; color: var(--bio-green); margin-top: 0;">SCIENTIFIC_RECOMMENDATION</h2>
-            <p>Based on the <strong>Windsor Olympus Research Matrix</strong>, we recommend the immediate prioritization of <strong>Seagrass Reforestation</strong>. It offers the highest carbon-capture ROI and provides vital natural infrastructure for the restoration of UK biodiversity levels.</p>
-        </div>
-
     </div>
 
     <script>
-        function showTab(btn, tabId) {
-            const card = btn.closest('.ui-card');
-            card.querySelectorAll('.tab-trigger').forEach(b => b.classList.remove('active'));
-            card.querySelectorAll('.content-pane').forEach(p => p.classList.remove('active'));
+        function toggleVault(show) { document.getElementById('data-vault').style.display = show ? 'block' : 'none'; }
+        function switchVault(btn, sectionId) {
+            document.querySelectorAll('.v-content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.v-tab').forEach(t => t.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
             btn.classList.add('active');
-            document.getElementById(tabId).classList.add('active');
         }
     </script>
 </body>
