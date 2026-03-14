@@ -3,160 +3,156 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PROJECT POSEIDON | UK 2050 SYSTEM</title>
+    <title>PROJECT POSEIDON | DEEP SEA 2050</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --sea-blue: #0077be;
-            --neon-cyan: #00f2ff;
-            --bio-green: #00ff88;
-            --deep-navy: #010b13;
-            --warning: #ff3e3e;
+            --water-blue: #00d4ff;
+            --abyss: #000814;
+            --kelp-green: #00ffcc;
+            --warning-red: #ff0055;
         }
 
         body {
-            margin: 0; background: var(--deep-navy); color: #e0f7fa;
-            font-family: 'Rajdhani', sans-serif; line-height: 1.6;
+            margin: 0; background-color: var(--abyss); color: #c4e9ff;
+            font-family: 'Rajdhani', sans-serif; overflow-x: hidden;
         }
 
-        /* Nav Bar */
+        /* The "Water" Effect */
+        .ocean-floor {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(180deg, rgba(0, 20, 40, 0.8) 0%, var(--abyss) 100%),
+                        url('https://images.unsplash.com/photo-1551244072-5d12893278ab?q=80&w=2000&auto=format&fit=crop');
+            background-size: cover; background-position: center;
+            z-index: -1; filter: brightness(0.6) contrast(1.2);
+        }
+
         nav {
-            position: fixed; top: 0; width: 100%; height: 70px;
-            background: rgba(1, 11, 19, 0.95); backdrop-filter: blur(10px);
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 0 50px; z-index: 1000; border-bottom: 2px solid var(--neon-cyan);
+            position: fixed; top: 0; width: 100%; display: flex;
+            justify-content: space-between; padding: 20px 50px;
+            background: rgba(0, 8, 20, 0.8); backdrop-filter: blur(15px);
+            border-bottom: 2px solid var(--water-blue); z-index: 100;
         }
 
-        .nav-links a {
-            color: white; text-decoration: none; margin-left: 25px;
-            font-family: 'Orbitron'; font-size: 0.75rem; border: 1px solid var(--neon-cyan);
-            padding: 10px 20px; border-radius: 5px; transition: 0.4s;
-        }
+        nav a { color: var(--water-blue); text-decoration: none; font-family: 'Orbitron'; font-size: 0.8rem; margin-left: 20px; border: 1px solid var(--water-blue); padding: 5px 15px; border-radius: 4px; }
 
-        .nav-links a:hover { background: var(--neon-cyan); color: var(--deep-navy); }
-
-        /* Video/Hero Header */
         header {
-            height: 100vh; display: flex; flex-direction: column; justify-content: center;
-            align-items: center; text-align: center; position: relative; overflow: hidden;
+            height: 100vh; display: flex; flex-direction: column; 
+            justify-content: center; align-items: center; text-align: center;
         }
 
-        .video-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(1, 11, 19, 0.5), var(--deep-navy));
-            z-index: 1;
+        h1 { font-family: 'Orbitron'; font-size: clamp(3rem, 10vw, 7rem); margin: 0; color: white; text-shadow: 0 0 20px var(--water-blue); letter-spacing: 15px; }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 50px 20px; }
+
+        /* Tech Card */
+        .tech-panel {
+            background: rgba(0, 212, 255, 0.05);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            backdrop-filter: blur(10px); border-radius: 20px;
+            padding: 40px; margin-bottom: 80px; position: relative;
+            box-shadow: 0 0 40px rgba(0,0,0,0.5);
         }
 
-        header h1 {
-            font-family: 'Orbitron'; font-size: 6rem; color: var(--neon-cyan);
-            z-index: 2; margin: 0; text-shadow: 0 0 40px var(--neon-cyan);
+        .tech-panel::before {
+            content: "DATA_ENCRYPTED"; position: absolute; top: 10px; right: 20px;
+            font-size: 0.6rem; color: var(--water-blue); opacity: 0.5;
         }
 
-        /* Problem/Solution Sections */
-        .container { max-width: 1200px; margin: 0 auto; padding: 100px 20px; }
+        h2 { font-family: 'Orbitron'; color: var(--kelp-green); text-transform: uppercase; border-left: 5px solid var(--water-blue); padding-left: 15px; }
 
-        .grid-section {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 50px;
-            margin-bottom: 150px; background: rgba(255,255,255,0.03);
-            padding: 50px; border-radius: 30px; border: 1px solid rgba(0, 242, 255, 0.1);
-        }
+        .flex-box { display: flex; gap: 40px; align-items: center; flex-wrap: wrap; }
+        .flex-box div { flex: 1; min-width: 300px; }
 
-        .problem-box { border-left: 4px solid var(--warning); padding: 20px; background: rgba(255, 62, 62, 0.05); }
-        .solution-box { border-left: 4px solid var(--bio-green); padding: 20px; background: rgba(0, 255, 136, 0.05); }
+        .stem-label { background: var(--water-blue); color: var(--abyss); padding: 2px 10px; font-weight: bold; border-radius: 3px; font-size: 0.8rem; }
 
-        h2 { font-family: 'Orbitron'; color: var(--neon-cyan); margin-top: 0; }
-        h3 { color: var(--bio-green); text-transform: uppercase; font-size: 0.9rem; letter-spacing: 2px; }
+        /* News Bar */
+        .sonar-ping { height: 40px; background: var(--water-blue); color: var(--abyss); font-family: 'Orbitron'; display: flex; align-items: center; overflow: hidden; position: fixed; bottom: 0; width: 100%; font-weight: bold; }
 
-        .stem-data {
-            margin-top: 20px; font-family: monospace; color: var(--neon-cyan);
-            background: #000; padding: 15px; border-radius: 10px; font-size: 0.85rem;
-        }
-
-        /* Footer Ticker */
-        .news-ticker {
-            position: fixed; bottom: 0; width: 100%; background: var(--neon-cyan);
-            color: var(--deep-navy); font-weight: bold; padding: 8px;
-            white-space: nowrap; overflow: hidden; font-family: 'Orbitron';
-        }
+        .ticker { animation: move 20s linear infinite; white-space: nowrap; }
+        @keyframes move { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
     </style>
 </head>
 <body>
 
+    <div class="ocean-floor"></div>
+
     <nav>
-        <div class="logo" style="font-family: 'Orbitron'; font-size: 1.5rem; color: var(--neon-cyan);">POSEIDON.SYS</div>
-        <div class="nav-links">
-            <a href="#">SYSTEM_HOME</a>
-            <a href="YOUR_POSTER_LINK_HERE">POSTER_VIEW</a>
-            <a href="https://www.noc.ac.uk/" target="_blank">REF_NOC_UK</a>
+        <div style="font-family: 'Orbitron'; color: white;">POSEIDON_OS // v2.5</div>
+        <div>
+            <a href="#">DASHBOARD</a>
+            <a href="YOUR_POSTER_LINK">VIEW_POSTER</a>
         </div>
     </nav>
 
     <header>
-        <div class="video-overlay"></div>
-        <img src="https://images.unsplash.com/photo-1464802686167-b939a6910659?auto=format&fit=crop&w=1500&q=80" style="position:absolute; width:100%; height:100%; object-fit:cover;" alt="Deep Space Sea">
-        <h1>POSEIDON</h1>
-        <p style="z-index: 2; letter-spacing: 10px; font-size: 1.5rem;">UK MARINE INFRASTRUCTURE 2050</p>
+        <h1>SEA</h1>
+        <p style="letter-spacing: 8px; font-size: 1.2rem; color: var(--water-blue);">THE 2050 MARINE RESTORATION INITIATIVE</p>
     </header>
 
     <div class="container">
 
-        <div class="grid-section">
-            <div class="problem-box">
-                <h3>THE PROBLEM: MICROPLASTIC TOXICITY</h3>
-                <p>In 2024, UK waters contained an average of 1,000 particles per $m^3$. These plastics enter the food chain, causing endocrine disruption in marine life and humans.</p>
-            </div>
-            <div class="solution-box">
-                <h2>NANO-FILTER BIO-REEFS</h2>
-                <p>We use <strong>Passive Electrostatic Capture</strong>. Our reefs are made of <em>Chitosan-Graphene</em> lattices that pull plastics from the water via ionic bonding.</p>
-                <div class="stem-data">
-                    STATUS: ACTIVE<br>
-                    MATERIAL: $C_6H_{11}NO_4$ (Deacetylated Chitin)<br>
-                    EFFICIENCY: 99.8% filtration of particles > 0.1μm
+        <div class="tech-panel">
+            <span class="stem-label">STEM: MOLECULAR BIOLOGY</span>
+            <h2>Nano-Silk Filter Reefs</h2>
+            <div class="flex-box">
+                <div>
+                    <p><strong>The Problem:</strong> Microplastics ($< 5mm$) are flooding the UK’s Exclusive Economic Zone, killing plankton and disrupting the carbon cycle.</p>
+                    <p><strong>The 2050 Solution:</strong> We have installed 3D-printed <strong>Ionic Lattices</strong> made from chitosan. These reefs use <strong>electrostatic attraction</strong> to trap plastic polymers at a molecular level.</p>
                 </div>
-            </div>
-        </div>
-        
-
-        <div class="grid-section" style="direction: rtl;">
-            <div class="problem-box" style="direction: ltr;">
-                <h3>THE PROBLEM: MARITIME CARBON & NOISE</h3>
-                <p>Old diesel cargo ships produced 3% of global $CO_2$ and deafened whales with low-frequency engine noise (180dB+).</p>
-            </div>
-            <div class="solution-box" style="direction: ltr;">
-                <h2>AQUA-MAGLEV TRANSIT</h2>
-                <p>The "Blue Belt" is a friction-less transport system. Cargo pods hover above the surface using <strong>Superconducting Magnetic Levitation</strong>.</p>
-                <div class="stem-data">
-                    PROPULSION: Linear Induction Motors (LIM)<br>
-                    FUEL: Liquid Green Hydrogen ($H_2$)<br>
-                    NOISE: < 5dB (Baleen Whale Safe)
-                </div>
-            </div>
-        </div>
-        
-
-[Image of magnetic levitation train]
-
-
-        <div class="grid-section">
-            <div class="problem-box">
-                <h3>THE PROBLEM: EXPLOITATION</h3>
-                <p>Oceans were treated as "international no-man's-land," leading to illegal overfishing and "ghost net" dumping that killed 100,000+ mammals yearly.</p>
-            </div>
-            <div class="solution-box">
-                <h2>THE OCEAN RIGHTS ACT</h2>
-                <p>Under the 2050 Act, the UK Sea is a <strong>Legal Person</strong>. Any pollution is treated as a criminal assault on the nation, monitored by autonomous AI drone constellations.</p>
-                <div class="stem-data">
-                    JURISDICTION: 200 Nautical Mile EEZ<br>
-                    MONITORING: Sentinel-9 AI Satellite Constellation<br>
-                    RECOVERY: +1,200% Sea Grass Biomass Increase
+                <div style="background: rgba(0,0,0,0.4); padding: 20px; border-radius: 10px; border: 1px dashed var(--water-blue);">
+                    <strong>SYSTEM SPECS:</strong><br>
+                    - Material: Chitin-Graphene Matrix<br>
+                    - Filtration: 99.4% Efficiency<br>
+                    - Location: Dogger Bank Recovery Zone
                 </div>
             </div>
         </div>
 
+        <div class="tech-panel">
+            <span class="stem-label">STEM: ENGINEERING & PHYSICS</span>
+            <h2>Aqua-Maglev Cargo Vessels</h2>
+            <div class="flex-box">
+                <div>
+                    <p><strong>The Problem:</strong> Shipping noise (180dB+) causes "acoustic fog," preventing whales from finding mates and food.</p>
+                    <p><strong>The 2050 Solution:</strong> UK cargo now moves via <strong>Maglev Pods</strong>. By using superconducting magnets, the pods hover above the water, eliminating hull-to-water friction and cavitation noise.</p>
+                </div>
+                <div style="background: rgba(0,0,0,0.4); padding: 20px; border-radius: 10px; border: 1px dashed var(--kelp-green);">
+                    <strong>SYSTEM SPECS:</strong><br>
+                    - Propulsion: Linear Induction<br>
+                    - Fuel: Liquid Hydrogen ($H_2$)<br>
+                    - Sound Emission: < 2dB
+                </div>
+            </div>
+        </div>
+
+        <div class="tech-panel">
+            <span class="stem-label">STEM: ENVIRONMENTAL LAW</span>
+            <h2>The Ocean Rights Amendment</h2>
+            <div class="flex-box">
+                <div>
+                    <p><strong>The Problem:</strong> Corporate overfishing and "Ghost Net" dumping in the 2020s led to a 40% drop in UK fish stocks.</p>
+                    <p><strong>The 2050 Solution:</strong> The UK granted the sea <strong>Legal Personhood</strong>. AI-controlled drones now patrol the coast, automatically fining any vessel that breaches the 60% "No-Take" sanctuary zones.</p>
+                </div>
+                <div style="background: rgba(0,0,0,0.4); padding: 20px; border-radius: 10px; border: 1px dashed var(--warning-red);">
+                    <strong>LEGAL SPECS:</strong><br>
+                    - Jurisdiction: 200nm Limit<br>
+                    - Recovery Rate: +250% Biomass<br>
+                    - Monitoring: Sentinel AI Hub
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; padding: 50px; opacity: 0.6;">
+            <p>SOURCES: National Oceanography Centre | Maritime UK Vision 2050 | The Ocean Cleanup</p>
+            <p>SCHOOL: [YOUR SCHOOL NAME]</p>
+        </div>
     </div>
 
-    <div class="news-ticker">
-        ● SYSTEM UPDATE: NORTH SEA CORAL RECOVERY AT 88% ● AQUA-MAGLEV POD 12 ARRIVING AT PORT OF LONDON ● ZERO CARBON TARGET ACHIEVED ●
+    <div class="sonar-ping">
+        <div class="ticker">
+            >>> SONAR ALERT: HUMPBACK WHALE POD DETECTED IN THAMES ESTUARY FOR FIRST TIME IN 60 YEARS >>> NANO-REEF PLASTIC SATURATION AT 12% >>> ALL SYSTEMS NOMINAL >>>
+        </div>
     </div>
 
 </body>
