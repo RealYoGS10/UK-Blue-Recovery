@@ -3,34 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UK MARITIME ARCHIVE | GURMEET SINGH 8F</title>
+    <title>UK MARITIME ARCHIVE | GURMEET SINGH</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --uk-blue: #001220;
+            --uk-blue: #000c1a;
             --neon-cyan: #00f2ff;
             --bio-emerald: #00ff88;
-            --glass: rgba(255, 255, 255, 0.03);
+            --warning-amber: #ffaa00;
+            --glass: rgba(0, 242, 255, 0.03);
         }
 
         body {
             margin: 0; background: var(--uk-blue); color: #e0f7ff;
             font-family: 'Rajdhani', sans-serif; line-height: 1.6;
-            background-image: radial-gradient(circle at 50% 10%, #002d5a 0%, #001220 100%);
+            background-image: radial-gradient(circle at 50% 10%, #001e3d 0%, #000c1a 100%);
             background-attachment: fixed;
         }
 
-        /* NAVIGATION & POSTER BUTTON */
         nav {
             position: fixed; top: 0; width: 100%; display: flex;
             justify-content: space-between; align-items: center;
-            padding: 15px 40px; background: rgba(0, 18, 32, 0.9);
+            padding: 15px 40px; background: rgba(0, 12, 26, 0.95);
             backdrop-filter: blur(15px); border-bottom: 2px solid var(--neon-cyan);
             z-index: 1000; box-sizing: border-box;
         }
 
-        .header-title { font-family: 'Orbitron'; font-weight: 700; letter-spacing: 2px; color: #fff; font-size: 0.9rem; }
+        .header-title { font-family: 'Orbitron'; font-weight: 700; letter-spacing: 2px; color: #fff; font-size: 0.8rem; }
         
+        .my-name-tech {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            color: #fff;
+            font-size: 2.5rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            text-shadow: 0 0 20px rgba(0, 242, 255, 0.4);
+        }
+
         .poster-btn {
             background: transparent; border: 2px solid var(--neon-cyan);
             color: var(--neon-cyan); font-family: 'Orbitron'; padding: 8px 20px;
@@ -39,88 +49,123 @@
         }
         .poster-btn:hover { background: var(--neon-cyan); color: var(--uk-blue); box-shadow: 0 0 20px var(--neon-cyan); }
 
-        /* MAIN CONTENT */
-        .container { max-width: 1200px; margin: 0 auto; padding: 120px 20px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 140px 20px; }
 
-        .hero-section { text-align: center; margin-bottom: 80px; }
-        h1 { font-family: 'Orbitron'; font-size: clamp(3rem, 10vw, 6rem); margin: 0; letter-spacing: 15px; color: #fff; text-shadow: 0 0 30px var(--neon-cyan); }
+        .hero-section { text-align: center; margin-bottom: 60px; }
+        h1 { font-family: 'Orbitron'; font-size: 1.2rem; margin: 0; letter-spacing: 10px; color: var(--neon-cyan); opacity: 0.8; }
+
+        /* VIDEO RESEARCH GRID */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 80px;
+        }
+
+        .video-box {
+            border: 1px solid rgba(0, 242, 255, 0.3); border-radius: 10px;
+            overflow: hidden; background: #000;
+        }
+        .video-label { 
+            background: rgba(0, 242, 255, 0.1); color: var(--neon-cyan); 
+            font-family: 'Orbitron'; font-size: 0.65rem; 
+            padding: 8px 15px; border-bottom: 1px solid rgba(0, 242, 255, 0.3);
+            text-transform: uppercase;
+        }
+        .video-box iframe { width: 100%; aspect-ratio: 16 / 9; border: none; display: block; }
 
         .data-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; }
 
         .data-card {
             background: var(--glass); border: 1px solid rgba(0, 242, 255, 0.1);
-            border-radius: 15px; padding: 30px; position: relative;
-            transition: 0.3s;
+            border-radius: 12px; padding: 30px; position: relative;
         }
-        .data-card:hover { border-color: var(--neon-cyan); background: rgba(0, 242, 255, 0.05); }
-        .data-card::before { content: "UK_GOV_PROTECTED"; position: absolute; top: 10px; right: 20px; font-size: 0.6rem; color: var(--neon-cyan); opacity: 0.5; font-family: 'Orbitron'; }
 
-        h2 { font-family: 'Orbitron'; color: var(--bio-emerald); font-size: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; }
+        .case-study { border-color: var(--warning-amber); }
+        .case-study h2 { color: var(--warning-amber); }
 
-        .fact-list { list-style: none; padding: 0; }
-        .fact-list li { margin-bottom: 15px; padding-left: 20px; position: relative; font-size: 1.05rem; }
-        .fact-list li::before { content: "»"; position: absolute; left: 0; color: var(--neon-cyan); font-weight: bold; }
+        h2 { font-family: 'Orbitron'; color: var(--bio-emerald); font-size: 1.3rem; margin-top: 0; }
+
+        .fact-list { list-style: none; padding: 0; margin: 20px 0; }
+        .fact-list li { margin-bottom: 12px; padding-left: 20px; position: relative; font-size: 1.1rem; }
+        .fact-list li::before { content: "›"; position: absolute; left: 0; color: var(--neon-cyan); font-weight: bold; }
 
         .stem-solution {
-            background: rgba(0, 255, 136, 0.1); border-left: 4px solid var(--bio-emerald);
-            padding: 15px; margin-top: 20px; border-radius: 0 8px 8px 0;
+            background: rgba(0, 255, 136, 0.08); border-left: 3px solid var(--bio-emerald);
+            padding: 15px; border-radius: 0 8px 8px 0;
         }
-        .stem-solution b { color: var(--bio-emerald); font-family: 'Orbitron'; font-size: 0.8rem; display: block; margin-bottom: 5px; }
+        .stem-solution b { color: var(--bio-emerald); font-family: 'Orbitron'; font-size: 0.75rem; display: block; margin-bottom: 5px; }
 
-        footer { text-align: center; padding: 50px; font-family: 'Orbitron'; font-size: 0.8rem; opacity: 0.6; }
+        footer { text-align: center; padding: 60px; font-family: 'Orbitron'; font-size: 0.7rem; opacity: 0.5; }
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="header-title">UNITED KINGDOM MARINE DATABASE</div>
-        <a href="https://www.canva.com/design/DAHD8Av6Bbc/6G0yChzFaujOQPXUo89v2Q/edit?utm_content=DAHD8Av6Bbc&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton" target="_blank" class="poster-btn">VIEW POSTERS</a>
+        <div class="header-title">UK MARITIME COMMAND // STEM 2026</div>
+        <a href="https://www.canva.com/design/DAHD8Av6Bbc/6G0yChzFaujOQPXUo89v2Q/edit?utm_content=DAHD8Av6Bbc&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton" target="_blank" class="poster-btn">OPEN RESEARCH POSTER</a>
     </nav>
 
     <div class="container">
         <div class="hero-section">
-            <h1>UK SEAS</h1>
-            <p style="font-family: 'Orbitron'; color: var(--neon-cyan); letter-spacing: 5px;">GURMEET SINGH // 8F // WINDSOR OLYMPUS ACADEMY</p>
+            <h1>PROJECT POSEIDON</h1>
+            <div class="my-name-tech">Gurmeet Singh</div>
+            <p style="font-family: 'Rajdhani'; font-weight: 700; color: var(--bio-emerald); font-size: 1.2rem; margin-top: 10px;">WINDSOR OLYMPUS ACADEMY | 8F</p>
+        </div>
+
+        <div class="video-grid">
+            <div class="video-box">
+                <div class="video-label">Ref A: Interceptor Technology</div>
+                <iframe src="https://www.youtube.com/embed/L8pEdHzQcik" allowfullscreen></iframe>
+            </div>
+            <div class="video-box">
+                <div class="video-label">Ref B: Ganges Sewage Analysis</div>
+                <iframe src="https://www.youtube.com/embed/v8lu9ntmPJo" allowfullscreen></iframe>
+            </div>
+            <div class="video-box">
+                <div class="video-label">Ref C: India's Industrial Impact</div>
+                <iframe src="https://www.youtube.com/embed/oomnVtadt1Y" allowfullscreen></iframe>
+            </div>
         </div>
 
         <div class="data-grid">
             
             <div class="data-card">
-                <h2>01. Phytoplankton</h2>
+                <h2>The Interceptor™</h2>
                 <ul class="fact-list">
-                    <li>Produce 50% of the world's oxygen.</li>
-                    <li>Primary food source for all UK sea life.</li>
-                    <li>Absorb $CO_2$ directly from the British atmosphere.</li>
+                    <li>Developed by The Ocean Cleanup to stop river plastic.</li>
+                    <li>Powered entirely by solar energy for autonomous use.</li>
+                    <li>Currently deployed in high-pollutant rivers globally.</li>
                 </ul>
                 <div class="stem-solution">
-                    <b>STEM SOLUTION:</b>
-                    Satellite data monitoring "Ocean Color" to protect blooms from industrial pollution.
+                    <b>STEM APPLICATION:</b>
+                    Using mechanical conveyor systems to remove surface waste before it enters the sea.
+                </div>
+            </div>
+
+            <div class="data-card case-study">
+                <h2>The Ganges Crisis</h2>
+                <ul class="fact-list">
+                    <li>Over 4.8 billion liters of sewage flow in daily [00:03:44].</li>
+                    <li>400+ tanneries release toxic chromium into the basin [00:05:02].</li>
+                    <li>Scientists describe the river as being "on a ventilator" [00:03:14].</li>
+                </ul>
+                <div class="stem-solution" style="border-left-color: var(--warning-amber); background: rgba(255, 170, 0, 0.08);">
+                    <b style="color: var(--warning-amber);">CRITICAL RESEARCH:</b>
+                    Existing treatment plants only handle 1B liters, leaving 3.8B liters untreated [00:04:02].
                 </div>
             </div>
 
             <div class="data-card">
-                <h2>05. Seagrass Meadows</h2>
+                <h2>UK Blue Carbon</h2>
                 <ul class="fact-list">
-                    <li>Traps carbon **35x faster** than tropical rainforests.</li>
-                    <li>Primary nursery for UK Seahorses and Cod.</li>
-                    <li>92% of UK seagrass has been lost since 1930.</li>
+                    <li>UK salt marshes store millions of tonnes of CO2.</li>
+                    <li>Seagrass is 35x more efficient at capture than forests.</li>
+                    <li>Protects the British coastline from rising sea levels.</li>
                 </ul>
                 <div class="stem-solution">
-                    <b>STEM SOLUTION:</b>
-                    "Project Seagrass"—automated deployment of biodegradable seed bags to regrow the meadows.
-                </div>
-            </div>
-
-            <div class="data-card">
-                <h2>23. Tidal Stream Generators</h2>
-                <ul class="fact-list">
-                    <li>Underwater windmills powered by predictable tides.</li>
-                    <li>Placed in high-velocity UK channels (e.g., Scotland).</li>
-                    <li>Generates 100% clean, renewable energy for the UK grid.</li>
-                </ul>
-                <div class="stem-solution">
-                    <b>STEM SOLUTION:</b>
-                    "Bidirectional Blades" that capture energy from both incoming and outgoing tides.
+                    <b>STEM APPLICATION:</b>
+                    Restoring marine habitats to meet UK Net Zero goals by 2050.
                 </div>
             </div>
 
@@ -128,7 +173,7 @@
     </div>
 
     <footer>
-        GURMEET SINGH [8F] | WINDSOR OLYMPUS ACADEMY | MISSION: POSEIDON 2050
+        OFFICIAL SUBMISSION // GURMEET SINGH // YEAR 8 SCIENCE
     </footer>
 
 </body>
