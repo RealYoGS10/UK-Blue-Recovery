@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>POSEIDON TERMINAL | GURMEET SINGH 8F</title>
+    <title>POSEIDON | DEPTH COMMAND</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -18,204 +18,144 @@
             background-size: 50px 50px; background-attachment: fixed;
         }
 
-        /* 5. SYSTEM WARNING TICKER */
-        .ticker-wrap {
-            position: fixed; top: 70px; width: 100%; overflow: hidden;
-            background: rgba(255, 60, 0, 0.1); border-bottom: 1px solid var(--warn); z-index: 999;
+        /* 1. DEPTH METER SIDEBAR */
+        #depth-gauge {
+            position: fixed; right: 20px; top: 100px; bottom: 50px; width: 60px;
+            border-left: 2px solid var(--neon); z-index: 1001; background: rgba(0,0,0,0.3);
         }
-        .ticker {
-            display: inline-block; white-space: nowrap; padding-right: 100%;
-            animation: ticker 30s linear infinite; color: var(--warn); font-family: 'Orbitron'; font-size: 0.8rem;
+        #sub-icon {
+            position: absolute; right: 0; top: 0; color: var(--neon);
+            font-size: 1.5rem; transition: 0.1s linear;
         }
-        @keyframes ticker { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(-100%, 0, 0); } }
+        #depth-counter {
+            position: absolute; right: 40px; top: 0; font-family: 'Orbitron';
+            color: var(--neon); font-size: 0.8rem; white-space: nowrap;
+        }
+        .zone-label {
+            position: absolute; left: -100px; font-size: 0.7rem; color: var(--neon);
+            opacity: 0.5; font-family: 'Orbitron'; text-transform: uppercase;
+        }
 
+        /* TICKER & NAV (Restored) */
         nav {
             position: fixed; top: 0; width: 100%; height: 70px;
             display: flex; justify-content: space-between; align-items: center;
             padding: 0 50px; background: rgba(0, 8, 20, 0.95);
             border-bottom: 2px solid var(--neon); z-index: 1000; box-sizing: border-box;
-            backdrop-filter: blur(10px);
         }
+        .ticker-wrap {
+            position: fixed; top: 70px; width: 100%; overflow: hidden;
+            background: rgba(255, 60, 0, 0.1); border-bottom: 1px solid var(--warn); z-index: 999;
+        }
+        .ticker {
+            display: inline-block; white-space: nowrap; animation: ticker 30s linear infinite;
+            color: var(--warn); font-family: 'Orbitron'; font-size: 0.8rem; padding: 5px;
+        }
+        @keyframes ticker { 0% { transform: translate3d(100%, 0, 0); } 100% { transform: translate3d(-100%, 0, 0); } }
 
-        .container { max-width: 1400px; margin: 0 auto; padding: 150px 20px 100px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 150px 100px 100px 50px; }
+        .section-header { font-family: 'Orbitron'; color: var(--neon); border-left: 5px solid var(--neon); padding-left: 15px; margin: 100px 0 30px; letter-spacing: 5px; }
 
-        /* HUD ELEMENTS */
-        .section-header { font-family: 'Orbitron'; color: var(--neon); border-left: 5px solid var(--neon); padding-left: 15px; margin: 60px 0 30px; letter-spacing: 5px; text-transform: uppercase; }
+        /* HUD PANELS */
+        .panel { background: var(--glass); border: 1px solid var(--border); padding: 30px; margin-bottom: 40px; position: relative; }
+        .data-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .card { background: var(--glass); border: 1px solid var(--border); padding: 20px; cursor: pointer; transition: 0.3s; }
+        .card:hover { border-color: var(--neon); box-shadow: 0 0 15px var(--neon); transform: scale(1.02); }
 
-        /* 1. LIVE SAT-LINK & TIDE DASHBOARD */
-        .intel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 40px; }
-        .intel-panel { background: var(--glass); border: 1px solid var(--border); padding: 20px; position: relative; overflow: hidden; }
-        
-        .radar-sweep {
-            width: 100%; height: 200px; background: radial-gradient(circle, #002200 0%, #000 70%);
-            position: relative; overflow: hidden; border: 1px solid var(--bio);
-        }
-        .radar-sweep::after {
-            content: ""; position: absolute; width: 200%; height: 200%; top: -50%; left: -50%;
-            background: conic-gradient(from 0deg, transparent 0deg, rgba(0, 255, 136, 0.3) 360deg);
-            animation: sweep 4s linear infinite;
-        }
-        @keyframes sweep { to { transform: rotate(360deg); } }
-        .coords { position: absolute; bottom: 10px; right: 10px; font-family: 'Orbitron'; font-size: 0.7rem; color: var(--neon); }
+        /* CLI TERMINAL (Restored) */
+        .cli-box { background: #000; border: 1px solid var(--bio); padding: 15px; font-family: 'Courier New', monospace; color: var(--bio); }
+        .cli-input { background: transparent; border: none; color: var(--bio); width: 80%; outline: none; }
 
-        /* 3. LOGISTICS PULSE */
-        .logistics-track {
-            display: flex; justify-content: space-between; align-items: flex-end;
-            padding: 40px; background: rgba(0, 242, 255, 0.02); border: 1px solid var(--border);
-        }
-        .log-node { flex: 1; text-align: center; position: relative; }
-        .node-blob { 
-            width: 20px; height: 20px; background: var(--neon); border-radius: 50%; margin: 0 auto 10px;
-            box-shadow: 0 0 15px var(--neon); animation: pulse 2s infinite;
-        }
-        .bar-container { width: 60%; height: 10px; background: #222; margin: 10px auto; border-radius: 5px; overflow: hidden; }
-        .bar-fill { height: 100%; transition: 1s; }
-
-        /* 4. CLI TERMINAL */
-        .cli-box {
-            background: #000; border: 1px solid var(--bio); padding: 15px;
-            font-family: 'Courier New', monospace; color: var(--bio); margin-top: 40px;
-        }
-        .cli-input { background: transparent; border: none; color: var(--bio); width: 80%; outline: none; font-family: 'Courier New'; }
-
-        /* DATA GRID */
-        .data-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        .card { 
-            background: var(--glass); border: 1px solid var(--border); padding: 25px; 
-            transition: 0.3s; cursor: pointer;
-        }
-        .card:hover { border-color: var(--neon); box-shadow: 0 0 20px rgba(0, 242, 255, 0.2); transform: translateY(-5px); }
-        
-        /* MODALS */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 8, 15, 0.98); z-index: 2000; overflow-y: auto; padding: 50px; }
-        .modal-content { max-width: 800px; margin: 0 auto; }
-        .close-btn { position: fixed; top: 30px; right: 50px; font-size: 2rem; color: var(--neon); cursor: pointer; }
-
-        .red-btn {
-            display: block; width: 100%; padding: 25px; background: var(--warn);
-            color: #fff; font-family: 'Orbitron'; font-weight: 900; text-align: center;
-            text-decoration: none; margin-top: 50px; border-radius: 5px; box-shadow: 0 0 30px var(--warn);
-        }
+        @keyframes pulse { 0% { opacity: 0.4; } 50% { opacity: 1; } 100% { opacity: 0.4; } }
     </style>
 </head>
-<body>
+<body onscroll="updateDepth()">
+
+<div id="depth-gauge">
+    <div id="sub-icon">▲</div>
+    <div id="depth-counter">DEPTH: 0m</div>
+    <div class="zone-label" style="top: 0;">Sunlight</div>
+    <div class="zone-label" style="top: 25%;">Twilight</div>
+    <div class="zone-label" style="top: 75%;">Midnight</div>
+</div>
 
 <nav>
-    <div style="font-family: 'Orbitron'; color: var(--neon);">SYSTEM_STATUS: ONLINE</div>
-    <div style="font-family: 'Orbitron'; color: var(--bio); font-size: 0.8rem;">GURMEET_SINGH_8F // OLYMPUS_ACADEMY</div>
+    <div style="font-family: 'Orbitron'; color: var(--neon);">SYSTEM: POSEIDON_DEEP_SCAN</div>
+    <a href="https://www.canva.com/design/DAHD8Av6Bbc/6G0yChzFaujOQPXUo89v2Q/edit" target="_blank" style="color:var(--warn); text-decoration:none; font-family:'Orbitron'; font-weight:bold;">[ VIEW POSTER ]</a>
 </nav>
 
 <div class="ticker-wrap">
-    <div class="ticker">
-        WARNING: SEWAGE DISCHARGE DETECTED - CORNWALL SECTOR 4 // pH LEVELS DROPPING - NORTH SEA // 400KG GHOST GEAR RECOVERED - DOGGER BANK // AMMONIA ($NH_3$) SPIKE DETECTED - THAMES ESTUARY
-    </div>
+    <div class="ticker">WARNING: HYPOXIC DEAD ZONE DETECTED // GHOST GEAR RECOVERY ACTIVE: DOGGER BANK // $NH_3$ LEVELS CRITICAL</div>
 </div>
 
 <div class="container">
     
-    <div class="section-header">INTEL_SURVEILLANCE</div>
-    <div class="intel-grid">
-        <div class="intel-panel">
-            <h3 style="font-family: 'Orbitron'; color: var(--neon); margin-top:0;">LIVE_SAT_LINK [SCANNING...]</h3>
-            <div class="radar-sweep">
-                <div style="position:absolute; top:50%; left:50%; width:4px; height:4px; background:red; box-shadow:0 0 10px red;"></div>
-                <div class="coords">LAT: 51.5074° N | LON: 0.1278° W</div>
-            </div>
-            <p style="font-size:0.8rem; color:#888; margin-top:10px;">SCANNING PLASTIC GYRES & THERMAL ANOMALIES</p>
-        </div>
-        <div class="intel-panel">
-            <h3 style="font-family: 'Orbitron'; color: var(--neon); margin-top:0;">TIDE_PHASE_UK</h3>
-            <iframe src="https://www.tideschart.com/world-tides-widget/en/London-Bridge-Greater-London-United-Kingdom-tides-75031.html" style="width: 100%; height: 200px; border: none; filter: invert(1);"></iframe>
-        </div>
-    </div>
-
-    <div class="section-header">LOGISTICS_THE_JOURNEY</div>
-    <div class="logistics-track">
-        <div class="log-node">
-            <div class="node-blob"></div>
-            <h4>GULLY DRAIN</h4>
-            <div class="bar-container"><div class="bar-fill" style="width:20%; background:var(--bio);"></div></div>
-            <small>CONTAM: LOW</small>
-        </div>
-        <div class="log-node">
-            <div class="node-blob" style="animation-delay: 0.5s;"></div>
-            <h4>THAMES RIVER</h4>
-            <div class="bar-container"><div class="bar-fill" style="width:60%; background:yellow;"></div></div>
-            <small>CONTAM: MODERATE</small>
-        </div>
-        <div class="log-node">
-            <div class="node-blob" style="animation-delay: 1s;"></div>
-            <h4>ESTUARY</h4>
-            <div class="bar-container"><div class="bar-fill" style="width:95%; background:var(--warn);"></div></div>
-            <small>CONTAM: CRITICAL</small>
-        </div>
-    </div>
-
-    <div class="section-header">SPECIMEN_ANALYSIS</div>
-    <div class="intel-grid">
-        <div class="intel-panel" onclick="openModal('m6')">
-            <h3 style="color:var(--bio);">MUSSEL: BIO-FILTER</h3>
-            
-            <p>One mussel filters **25L/day**. Removes $NH_3$ (Ammonia) and $NO_3^-$ (Nitrate).</p>
-        </div>
-        <div class="intel-panel" onclick="openModal('m5')">
-            <h3 style="color:var(--warn);">GREY SEAL: IMPACT</h3>
-            
-            <p>Tracking entanglement from "Ghost Nets" in Dogger Bank sector.</p>
-        </div>
-    </div>
-
-    <div class="section-header">DATABASE_NODES</div>
-    <div class="data-grid">
-        <div class="card" onclick="openModal('m1')"><h3>01. THE INTERCEPTOR</h3><small>RIVER TECH</small></div>
-        <div class="card" onclick="openModal('m2')"><h3>02. GANGES ANALYSIS</h3><small>GLOBAL CRISIS</small></div>
-        <div class="card" onclick="openModal('m3')"><h3>17. E-WASTE TOXINS</h3><small>Hg, Pb, Cd DETECTED</small></div>
-        <div class="card" onclick="openModal('m4')"><h3>04. BLUE CARBON</h3><small>$CO_2$ ABSORPTION</small></div>
-        <div class="card" onclick="openModal('m22')"><h3>22. BIOPLASTIC DECOMP</h3><small>DEGRADATION RATES</small></div>
-        </div>
-
-    <div class="cli-box" id="cli">
-        <div>> POSEIDON_TERMINAL_v4.0... READY.</div>
-        <div>> TYPE /SCAN_PLASTIC OR /RECOVERY_PLAN</div>
-        <span style="color:var(--bio)">$ </span><input type="text" id="cliInput" class="cli-input" onkeydown="handleCommand(event)">
-    </div>
-
-    <a href="#" class="red-btn" onclick="alert('SYSTEM OVERRIDE: INITIATING RECOVERY PROTOCOL...')">INITIATE_RECOVERY_PROTOCOL</a>
-
-</div>
-
-<div id="m1" class="modal">
-    <div class="modal-content">
-        <span class="close-btn" onclick="closeModal('m1')">X</span>
-        <h2 style="font-family: 'Orbitron'; color: var(--neon);">[01] THE INTERCEPTOR BLUEPRINT</h2>
+    <div class="section-header">ZONE_01: SUNLIGHT [0-200M]</div>
+    <div class="panel">
+        <h3>THE PLASTIC JOURNEY: SURFACE DISPERSION</h3>
+        <p>Macro-plastics enter via UK gully drains and the Thames Estuary. UV photo-oxidation ($UV_{ABC}$) begins the fragmentation process.</p>
         
-        <p>Technical Callouts: DEBRIS_EXTRACTION_ARM // SOLAR_POWER_ARRAY. This system intercepts 80% of river waste using autonomous flow-tracking.</p>
     </div>
-</div>
 
-<div id="m4" class="modal">
-    <div class="modal-content">
-        <span class="close-btn" onclick="closeModal('m4')">X</span>
-        <h2 style="font-family: 'Orbitron'; color: var(--bio);">BLUE CARBON CALCULATOR</h2>
-        <p>Seagrass uses photosynthesis to store carbon:</p>
-        <p style="text-align:center; font-size:1.5rem;">$$CO_2 + H_2O \xrightarrow{light} C_6H_{12}O_6 + O_2$$</p>
-        <p>1 square meter of UK Seagrass absorbs 40x more $CO_2$ than 1 square meter of Amazon Rainforest.</p>
+    <div class="data-grid">
+        <div class="card" onclick="alert('Analysis: One Mussel filters 25L of $H_2O$ daily.')"><h3>06. MUSSEL BIO-FILTERS</h3><small>STATUS: ACTIVE</small></div>
+        <div class="card"><h3>04. BLUE CARBON</h3><small>SEAGRASS RECOVERY</small></div>
+        <div class="card"><h3>01. THE INTERCEPTOR</h3><small>RIVER DEFENSE</small></div>
     </div>
+
+    <div class="section-header">ZONE_02: TWILIGHT [200-1000M]</div>
+    <div class="panel">
+        <h3>ACOUSTIC_POLLUTION_ANALYSIS</h3>
+        <p>Low-frequency shipping noise ($20\text{–}300$ Hz) interferes with Cetacean communication.</p>
+        
+    </div>
+
+    <div class="data-grid">
+        <div class="card"><h3>15. OCEAN ACIDIFICATION</h3><small>pH MONITORING</small></div>
+        <div class="card"><h3>05. GREY SEAL IMPACT</h3><small>ENTANGLEMENT DATA</small></div>
+    </div>
+
+    <div class="section-header">ZONE_03: MIDNIGHT [1000M+]</div>
+    <div class="panel">
+        <h3>DEEP_SEA_MICROPLASTICS</h3>
+        <p>Plastics have been detected in the Mariana Trench. Bio-accumulation occurs even in the absence of light through marine snow.</p>
+    </div>
+
+    <div class="data-grid">
+        <div class="card"><h3>21. DEEP SEA ROVS</h3><small>MAPPING FLOOR</small></div>
+        <div class="card"><h3>24. GRAPHENE FILTERS</h3><small>NANOTECH PURIFICATION</small></div>
+    </div>
+
+    <div class="section-header">SYSTEM_OVERRIDE</div>
+    <div class="cli-box">
+        <div>> GURMEET_SINGH_8F TERMINAL...</div>
+        <div>> TYPE /RECOVERY_PLAN TO INITIATE</div>
+        <span>$ </span><input type="text" class="cli-input" id="cliInp" onkeydown="handleCLI(event)">
+    </div>
+
 </div>
 
 <script>
-    function openModal(id) { document.getElementById(id).style.display = "block"; }
-    function closeModal(id) { document.getElementById(id).style.display = "none"; }
-    
-    function handleCommand(e) {
-        if (e.key === 'Enter') {
-            const val = document.getElementById('cliInput').value.toUpperCase();
-            if (val === '/SCAN_PLASTIC') {
-                alert("SUCCESS: Scanning North Sea Sector... Microplastic concentration: 4,000 fragments per $m^3$.");
-            } else if (val === '/RECOVERY_PLAN') {
-                alert("SUCCESS: Recovery Protocol Active. UK Seagrass restoration increased by 200% in Solent Sector.");
-            }
-            document.getElementById('cliInput').value = '';
+    function updateDepth() {
+        const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight));
+        const depth = Math.round(scrollPercent * 4000); // Max depth 4000m
+        
+        document.getElementById('sub-icon').style.top = (scrollPercent * 95) + "%";
+        document.getElementById('depth-counter').style.top = (scrollPercent * 95) + "%";
+        document.getElementById('depth-counter').innerText = "DEPTH: " + depth + "m";
+        
+        // Visual indicator for Zones
+        const sub = document.getElementById('sub-icon');
+        if (depth < 200) sub.style.color = "#00f2ff";
+        else if (depth < 1000) sub.style.color = "#00ff88";
+        else sub.style.color = "#ff3c00";
+    }
+
+    function handleCLI(e) {
+        if(e.key === 'Enter') {
+            const cmd = document.getElementById('cliInp').value;
+            if(cmd === '/RECOVERY_PLAN') alert('PROTOCOL ACTIVATED: Deploying Bio-Manta Swarms to Sector 7.');
+            document.getElementById('cliInp').value = '';
         }
     }
 </script>
