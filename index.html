@@ -3,288 +3,200 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TERMINAL | MARINE COMMAND | GURMEET SINGH</title>
+    <title>TERMINAL | GURMEET SINGH 8F</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #00080f;
-            --neon: #00f2ff;
-            --bio: #00ff88;
-            --warn: #ff3c00;
-            --glass: rgba(0, 242, 255, 0.05);
-            --border: rgba(0, 242, 255, 0.2);
+            --bg: #000814; --neon: #00f2ff; --bio: #00ff88; --warn: #ff3c00;
+            --glass: rgba(0, 242, 255, 0.05); --border: rgba(0, 242, 255, 0.2);
         }
 
         body {
-            background-color: var(--bg);
-            color: #fff;
-            font-family: 'Rajdhani', sans-serif;
-            margin: 0;
-            overflow-x: hidden;
-            background-image: 
-                linear-gradient(var(--border) 1px, transparent 1px),
-                linear-gradient(90deg, var(--border) 1px, transparent 1px);
-            background-size: 50px 50px;
-            background-attachment: fixed;
+            background-color: var(--bg); color: #fff; font-family: 'Rajdhani', sans-serif;
+            margin: 0; overflow-x: hidden;
+            background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 50px 50px; background-attachment: fixed;
         }
 
-        /* ELITE HUD OVERLAY */
-        body::after {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle, transparent 20%, #000 150%);
-            pointer-events: none;
-            z-index: 999;
+        /* SCANNING LINE ANIMATION */
+        body::before {
+            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 5px;
+            background: rgba(0, 242, 255, 0.2); box-shadow: 0 0 20px var(--neon);
+            z-index: 9999; pointer-events: none;
+            animation: scan 4s linear infinite;
         }
+
+        @keyframes scan { 0% { top: -5%; } 100% { top: 105%; } }
 
         nav {
             position: fixed; top: 0; width: 100%; height: 70px;
             display: flex; justify-content: space-between; align-items: center;
-            padding: 0 50px; background: rgba(0, 8, 15, 0.9);
-            border-bottom: 2px solid var(--neon); z-index: 1000;
-            backdrop-filter: blur(10px); box-sizing: border-box;
+            padding: 0 50px; background: rgba(0, 8, 20, 0.9);
+            border-bottom: 2px solid var(--neon); z-index: 1000; box-sizing: border-box;
+            backdrop-filter: blur(10px);
         }
-
-        .status-light {
-            width: 10px; height: 10px; background: var(--bio);
-            border-radius: 50%; display: inline-block;
-            box-shadow: 0 0 10px var(--bio);
-            margin-right: 10px; animation: blink 1.5s infinite;
-        }
-
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
         .container { max-width: 1400px; margin: 0 auto; padding: 120px 20px; }
 
-        .hero { text-align: center; margin-bottom: 100px; }
+        .hero { text-align: center; margin-bottom: 60px; }
+        
+        /* TYPEWRITER ANIMATION */
         .hero h1 { 
-            font-family: 'Orbitron'; font-weight: 900; font-size: 5rem; 
-            letter-spacing: 20px; margin: 0; color: #fff;
-            text-shadow: 0 0 30px var(--neon);
-        }
-        .user-id { 
-            font-family: 'Orbitron'; color: var(--neon); 
-            letter-spacing: 5px; font-size: 1.2rem;
+            font-family: 'Orbitron'; font-size: 5rem; letter-spacing: 20px; 
+            text-shadow: 0 0 30px var(--neon); margin: 0;
+            overflow: hidden; border-right: .15em solid var(--neon);
+            white-space: nowrap; margin: 0 auto;
+            animation: typing 3.5s steps(30, end), blink-caret .75s step-end infinite;
         }
 
-        /* VIDEO HUD */
-        .video-matrix {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
-            margin-bottom: 60px;
-        }
-        .video-hud {
-            border: 1px solid var(--neon); background: #000;
-            position: relative; padding: 5px;
-        }
-        .video-hud::before {
-            content: "LIVE_FEED_0" attr(data-id); position: absolute;
-            top: -10px; left: 10px; background: var(--bg);
-            padding: 0 10px; color: var(--neon); font-family: 'Orbitron'; font-size: 0.6rem;
-        }
-        .video-hud iframe { width: 100%; aspect-ratio: 16/9; border: none; }
+        @keyframes typing { from { width: 0 } to { width: 100% } }
+        @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: var(--neon); } }
 
         /* DATA GRID */
-        .data-grid { 
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-            gap: 20px; 
-        }
+        .data-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
 
         .card {
             background: var(--glass); border: 1px solid var(--border);
-            padding: 20px; position: relative; transition: 0.3s;
+            padding: 25px; position: relative; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer; overflow: hidden;
         }
-        .card:hover { 
-            background: rgba(0, 242, 255, 0.1); 
-            border-color: var(--neon);
-            box-shadow: 0 0 20px rgba(0, 242, 255, 0.2);
-        }
-        .card h3 { 
-            font-family: 'Orbitron'; color: var(--neon); 
-            font-size: 1rem; margin-top: 0;
-            border-left: 3px solid var(--neon); padding-left: 10px;
-        }
-        .card p { font-size: 0.9rem; color: #ccc; margin: 10px 0; }
-        .tag { font-size: 0.7rem; color: var(--bio); font-family: 'Orbitron'; }
 
-        /* MASTER PLAN SECTION */
-        .master-plan {
-            margin-top: 80px; border: 2px solid var(--bio);
-            padding: 40px; background: rgba(0, 255, 136, 0.02);
+        .card:hover { 
+            border-color: var(--neon); background: rgba(0, 242, 255, 0.15); 
+            transform: scale(1.05); box-shadow: 0 0 30px rgba(0, 242, 255, 0.3);
+        }
+
+        /* GLITCH TEXT ON HOVER */
+        .card:hover h3 { animation: glitch 0.3s linear infinite; }
+
+        @keyframes glitch {
+            0% { text-shadow: 2px 0 var(--warn), -2px 0 var(--bio); }
+            50% { text-shadow: -2px 0 var(--warn), 2px 0 var(--bio); }
+            100% { text-shadow: 2px 0 var(--warn), -2px 0 var(--bio); }
+        }
+
+        .click-more { 
+            color: var(--bio); font-size: 0.8rem; font-family: 'Orbitron'; 
+            margin-top: 15px; display: block; opacity: 0.6;
+        }
+        .card:hover .click-more { opacity: 1; letter-spacing: 1px; transition: 0.3s; }
+
+        /* MODAL ANIMATION */
+        .modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 8, 15, 0.98); z-index: 2000; overflow-y: auto;
+            padding: 50px; box-sizing: border-box;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .modal-content { max-width: 850px; margin: 0 auto; border-left: 2px solid var(--neon); padding-left: 40px; }
+        
+        .close-btn { 
+            position: fixed; top: 30px; right: 50px; font-size: 2.5rem; 
+            color: var(--neon); cursor: pointer; font-family: 'Orbitron'; transition: 0.3s;
+        }
+        .close-btn:hover { color: var(--warn); transform: rotate(90deg); }
+
+        .essay-text { line-height: 1.9; font-size: 1.2rem; color: #ddd; }
+        .essay-text h2 { font-family: 'Orbitron'; color: var(--bio); font-size: 2.5rem; margin-bottom: 30px; }
+
+        .video-link { 
+            display: inline-block; margin-top: 30px; color: var(--neon); 
+            text-decoration: none; border: 1px solid var(--neon); 
+            padding: 12px 30px; border-radius: 2px; font-family: 'Orbitron';
+            transition: 0.3s;
+        }
+        .video-link:hover { background: var(--neon); color: #000; box-shadow: 0 0 20px var(--neon); }
+
+        /* MASTER PLAN */
+        .master-plan { 
+            margin-top: 100px; border: 1px solid var(--bio); padding: 50px; 
+            background: linear-gradient(45deg, rgba(0, 255, 136, 0.05), transparent);
             position: relative;
         }
-        .master-plan h2 { font-family: 'Orbitron'; color: var(--bio); text-align: center; font-size: 2rem; }
+        .master-plan::after {
+            content: "STRATEGIC_PLAN_v4"; position: absolute; top: 10px; right: 20px;
+            font-family: 'Orbitron'; font-size: 0.7rem; color: var(--bio);
+        }
 
-        footer { text-align: center; padding: 100px; font-family: 'Orbitron'; opacity: 0.5; font-size: 0.8rem; }
-
+        footer { text-align: center; padding: 100px; font-family: 'Orbitron'; opacity: 0.4; letter-spacing: 5px; }
     </style>
 </head>
 <body>
 
 <nav>
-    <div class="user-id"><span class="status-light"></span>TERMINAL: GURMEET_SINGH_8F</div>
-    <div style="font-family: 'Orbitron'; color: var(--neon);">SYSTEM STATUS: SECURE</div>
+    <div style="font-family: 'Orbitron'; color: var(--neon); letter-spacing: 2px;">MARINE_COMMAND // GURMEET_SINGH</div>
+    <div style="font-family: 'Orbitron'; color: var(--bio);">ACCESS_LEVEL: ELITE</div>
 </nav>
 
 <div class="container">
     <div class="hero">
         <h1>POSEIDON</h1>
-        <p class="user-id">MARINE ARCHIVE // 2026 SUBMISSION</p>
-    </div>
-
-    <div class="video-matrix">
-        <div class="video-hud" data-id="1"><iframe src="https://www.youtube.com/embed/L8pEdHzQcik"></iframe></div>
-        <div class="video-hud" data-id="2"><iframe src="https://www.youtube.com/embed/v8lu9ntmPJo"></iframe></div>
-        <div class="video-hud" data-id="3"><iframe src="https://www.youtube.com/embed/oomnVtadt1Y"></iframe></div>
+        <p style="font-family: 'Orbitron'; letter-spacing: 10px; color: var(--neon); margin-top: 15px;">ADVANCED STEM ARCHIVE 2026</p>
     </div>
 
     <div class="data-grid">
-        <div class="card">
-            <span class="tag">#TECH_01</span>
-            <h3>The Interceptor™</h3>
-            <p>Solar-powered autonomous barges that capture 80% of river plastic before it reaches the ocean.</p>
-        </div>
-        <div class="card">
-            <span class="tag">#CRISIS_02</span>
-            <h3>The Ganges 'Ventilator'</h3>
-            <p>Experts claim the Ganges is on "life support" due to 4.8 billion liters of daily raw sewage.</p>
-        </div>
-        <div class="card">
-            <span class="tag">#CHEM_03</span>
-            <h3>Chromium Contamination</h3>
-            <p>400+ tanneries in Kanpur dump untreated heavy metals into the water supply of 500M people.</p>
-        </div>
-        <div class="card">
-            <span class="tag">#TECH_04</span>
-            <h3>System 03 (The Skimmer)</h3>
-            <p>A massive 2.2km U-shaped barrier designed by Boyan Slat to clean the Great Pacific Garbage Patch.</p>
+        <div class="card" onclick="openModal('modal1')">
+            <h3>01. THE INTERCEPTOR</h3>
+            <p>Harnessing solar power to create an autonomous barrier against river-borne plastic waste.</p>
+            <span class="click-more">[ ACCESS DEEP-DIVE ]</span>
         </div>
 
-        <div class="card">
-            <span class="tag">#BIO_05</span>
-            <h3>UK Seagrass Recovery</h3>
-            <p>UK waters have lost 92% of seagrass. STEM goal: Reseed 3000 hectares by 2030.</p>
+        <div class="card" onclick="openModal('modal2')">
+            <h3>02. THE GANGES CRISIS</h3>
+            <p>Case Study: The collapse of a river ecosystem under heavy industrial and urban stress.</p>
+            <span class="click-more">[ ACCESS DEEP-DIVE ]</span>
         </div>
-        <div class="card">
-            <span class="tag">#ENERGY_06</span>
-            <h3>Tidal Stream Turbines</h3>
-            <p>Harnessing the UK's massive tidal range to generate 100% predictable green electricity.</p>
-        </div>
-        <div class="card">
-            <span class="tag">#POLLUTION_07</span>
-            <h3>Microplastic Vectors</h3>
-            <p>Microplastics carry harmful bacteria and toxins into the human food chain via fish consumption.</p>
-        </div>
-        <div class="card">
-            <span class="tag">#CHEM_08</span>
-            <h3>Ocean Acidification</h3>
-            <p>Rising CO2 levels are making sea water acidic, dissolving the shells of crabs and lobsters.</p>
-        </div>
-        <div class="card">
-            <span class="tag">#STEM_09</span>
-            <h3>ROV Deep Sea Scanners</h3>
-            <p>Remotely Operated Vehicles mapping the 95% of the ocean floor that is still unexplored.</p>
-        </div>
-        <div class="card">
-            <span class="tag">#POLLUTION_10</span>
-            <h3>Ghost Gear</h3>
-            <p>Abandoned fishing nets account for 10% of all marine litter, killing thousands of turtles.</p>
-        </div>
-        <div class="card">
-            <span class="tag">#BIO_11</span>
-            <h3>Coral Bleaching</h3>
-            <p>Thermal stress causing coral to expel algae. STEM Solution: Heat-resistant lab-grown reefs.</p>
-        </div>
-        <div class="card">
-            <span class="tag">#ENERGY_12</span>
-            <h3>Offshore Wind Hubs</h3>
-            <p>The UK is a world leader in offshore wind, with Dogger Bank becoming the world's largest farm.</p>
-        </div>
-        <div class="card">
-            <span class="tag">#TECH_13</span>
-            <h3>Bubble Barriers</h3>
-            <p>A wall of air bubbles in rivers that blocks plastic but allows fish to swim through safely.</p>
-        </div>
-        <div class="card">
-            <span class="tag">#BIO_14</span>
-            <h3>Bioluminescence Data</h3>
-            <p>Using the light of deep-sea creatures to study water health and toxicity levels.</p>
-        </div>
-        <div class="card">
-            <span class="tag">#POLICY_15</span>
-            <h3>Plastic Bank Concept</h3>
-            <p>Paying people in developing nations to collect plastic, turning waste into a local currency.</p>
-        </div>
-        <div class="card">
-            <span class="tag">#UK_16</span>
-            <h3>The Thames Tideway</h3>
-            <p>London's "Super Sewer" designed to stop 95% of sewage spills into the River Thames.</p>
-        </div>
-        <div class="card">
-            <span class="tag">#BIO_17</span>
-            <h3>Phytoplankton Oxygen</h3>
-            <p>Marine plants produce 50% of the world's oxygen—more than all the world's rainforests.</p>
-        </div>
-        <div class="card">
-            <span class="tag">#TECH_18</span>
-            <h3>Satellite Monitoring</h3>
-            <p>Using AI and satellite imagery to track illegal oil dumping in the Atlantic from space.</p>
-        </div>
-        <div class="card">
-            <span class="tag">#CHEM_19</span>
-            <h3>Thermal Pollution</h3>
-            <p>Power plants releasing hot water into the sea, disrupting the oxygen levels for local fish.</p>
-        </div>
-        <div class="card">
-            <span class="tag">#UK_20</span>
-            <h3>Lundy Island MPA</h3>
-            <p>The UK's first Marine Conservation Zone, showing how "No Take" zones restore fish stocks.</p>
-        </div>
-        <div class="card">
-            <span class="tag">#STEM_21</span>
-            <h3>Bio-Plastic Evolution</h3>
-            <p>Creating plastic from Seaweed that dissolves in water within 24 hours without harm.</p>
-        </div>
-        <div class="card">
-            <span class="tag">#CRISIS_22</span>
-            <h3>E-Waste Runoff</h3>
-            <p>Old electronics leaking lithium and lead into the ocean from coastal landfills.</p>
-        </div>
-        <div class="card">
-            <span class="tag">#TECH_23</span>
-            <h3>Flesh-Eating Turtles</h3>
-            <p>The Indian plan to use scavengers to naturally clean biological waste from rivers.</p>
-        </div>
-        <div class="card">
-            <span class="tag">#BIO_24</span>
-            <h3>The Blue Hole Theory</h3>
-            <p>Studying deep underwater sinkholes to understand how life survives in extreme conditions.</p>
-        </div>
-        <div class="card">
-            <span class="tag">#STEM_25</span>
-            <h3>Nanotechnology Filters</h3>
-            <p>Graphene-based filters that can remove microplastics from washing machine drains.</p>
+
+        <div class="card" onclick="openModal('modal3')">
+            <h3>03. BLUE CARBON STEM</h3>
+            <p>Biological sequestration: How seagrass meadows outperform forests in carbon storage.</p>
+            <span class="click-more">[ ACCESS DEEP-DIVE ]</span>
         </div>
     </div>
 
     <div class="master-plan">
-        <h2>MISSION: PROJECT POSEIDON</h2>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 30px;">
-            <div>
-                <h3 style="color: var(--bio); font-family: 'Orbitron';">The Problem</h3>
-                <p>Rivers are the arteries of pollution, but once plastic hits the ocean, it breaks into micro-fragments that Interceptors cannot catch. We need a "secondary immune system" for the sea.</p>
-            </div>
-            <div>
-                <h3 style="color: var(--neon); font-family: 'Orbitron';">The Solution: AI SWARM BOTS</h3>
-                <p>My idea is to deploy thousands of <b>"Bio-Mimic Swarm Drones"</b>. These small, solar-powered drones would mimic the movement of Manta Rays, filtering water through internal mesh as they swim. They would use AI to avoid marine life and return to a "Mother Ship" once full of plastic.</p>
-            </div>
-        </div>
+        <h2 style="font-family: 'Orbitron'; color: var(--bio); text-align: center; font-size: 2rem;">THE POSEIDON SWARM: FUTURE INITIATIVE</h2>
+        <p style="font-size: 1.3rem; text-align: center; max-width: 900px; margin: 20px auto;">
+            My proposal involves <b>Autonomous Biomimetic Swarms</b>. These graphene-coated drones mimic marine life to filter micro-plastics silently, recharging via kinetic energy from ocean waves.
+        </p>
     </div>
-
 </div>
 
+<div id="modal1" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal('modal1')">X</span>
+        <div class="essay-text">
+            <h2>The Interceptor™: The Robotics of Recovery</h2>
+            <p>The Ocean Cleanup’s Interceptor is a masterclass in modern STEM application. By focusing on the 1,000 most polluting rivers, this technology addresses the root of the problem before it becomes an unmanageable oceanic crisis. The engineering relies on a catamaran hull design which allows water to flow through while a shuttle system gathers debris.</p>
+            
+            <p>The key innovation is the <b>Autonomous Extraction</b>. Sensors detect when the bins are 100% full, and the system communicates via cloud computing to local waste management teams. This integration of hardware and software is essential for scaling the cleanup to every continent.</p>
+            <a href="https://www.youtube.com/watch?v=L8pEdHzQcik" target="_blank" class="video-link">LAUNCH VIDEO FEED</a>
+        </div>
+    </div>
+</div>
+
+<div id="modal2" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal('modal2')">X</span>
+        <div class="essay-text">
+            <h2>Ganges Case Study: Biological Breakdown</h2>
+            <p>The Ganges River represents the most extreme challenge in maritime conservation. With 4.8 billion liters of sewage and millions of liters of industrial chromium from tanneries entering daily, the river has reached a "hypoxic" state—meaning oxygen levels are too low for most life. This is what scientists mean when they say the river is "on a ventilator."</p>
+            <p>Cleaning the Ganges requires more than just skimming plastic; it requires <b>Bioremediation</b> and <b>Advanced Chemical Filtration</b>. My research suggests that until industrial regulations are strictly enforced by AI-monitoring systems, the biological death of the river will continue to impact the 500 million people who rely on it for survival.</p>
+            <a href="https://www.youtube.com/watch?v=v8lu9ntmPJo" target="_blank" class="video-link">LAUNCH VIDEO FEED</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openModal(id) { document.getElementById(id).style.display = "block"; document.body.style.overflow = "hidden"; }
+    function closeModal(id) { document.getElementById(id).style.display = "none"; document.body.style.overflow = "auto"; }
+</script>
+
 <footer>
-    GURMEET SINGH | 8F | WINDSOR OLYMPUS ACADEMY | DATA ENCRYPTED 2026
+    DATA SUBMISSION BY GURMEET SINGH // 8F // WOA 2026
 </footer>
 
 </body>
